@@ -18,7 +18,7 @@ const meetingDuration = localStorage.getItem("duration");
 localStorage.removeItem("duration");
 localStorage.removeItem("name");
 document.getElementById("name").innerText =
-  meetingName !== null ? meetingName : fileName;
+  meetingName !== "" ? meetingName : fileName;
 
 // Recording algorithm
 
