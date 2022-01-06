@@ -2,4 +2,4 @@
 
 /.env
 
-/public/assets
+/public/assets/*

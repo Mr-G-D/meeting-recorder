@@ -55,7 +55,7 @@
       >
         <div class="flex justify-around">
           <div
-            class="w-full bg-gray-200 md:w-7/12 lg:w-6/12 xl:w-5/12 rounded-2xl"
+            class="w-full bg-gray-200 m-4 md:w-7/12 lg:w-6/12 xl:w-5/12 rounded-2xl"
           >
             <div
               class="flex flex-col items-start justify-start w-full h-full p-8"
@@ -70,12 +70,19 @@
                   />
                 </div>
                 <div class="flex justify-around">
-                  <button>
-                    <a
-                      onclick="record()"
-                      class="inline-block px-3 py-2 text-center text-white transition duration-300 bg-red-500 rounded-lg hover:bg-red-700 ease"
-                      ><i class="fa fa-circle"></i> Start Recording</a
-                    >
+                  <button
+                    id="startButton"
+                    onclick="startRecording()"
+                    class="inline-block px-3 py-2 text-center text-white transition duration-300 bg-red-500 rounded-lg hover:bg-red-700 ease"
+                  >
+                    <i class="fa fa-circle"></i> Start Recording
+                  </button>
+                  <button
+                    onclick="stopRecording()"
+                    id="stopButton"
+                    class="inline-block px-3 py-2 text-center text-white transition duration-300 bg-blue-600 rounded-lg hover:bg-blue-800 ease"
+                  >
+                    Stop
                   </button>
                 </div>
               </div>
@@ -126,5 +133,6 @@
       </footer>
     </div>
     <script src="../scripts/record.js"></script>
+    <script src="../scripts/WebAudioRecorder.min.js"></script>
   </body>
 </html>
