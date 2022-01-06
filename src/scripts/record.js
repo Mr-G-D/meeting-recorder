@@ -1,6 +1,7 @@
 "use strict";
 const { writeFile } = require("fs");
 require("dotenv").config();
+const notify = require("node-notifier");
 
 const date = new Date();
 const fileName =
@@ -175,11 +176,11 @@ const countDown = () => {
     speech.rate = 1;
     speech.pitch = 1;
     window.speechSynthesis.speak(speech);
-    // notify.notify({
-    //   title: process.env.APP_NAME,
-    //   message: `Only ${alertMinute} minutes more`,
-    //   icon: "public/images/recorder.png",
-    // });
+    notify.notify({
+      title: process.env.APP_NAME,
+      message: message,
+      icon: "public/images/recorder.png",
+    });
   }
   seconds = seconds < 10 ? "0" + seconds : seconds;
   minutes = minutes < 10 ? "0" + minutes : minutes;
