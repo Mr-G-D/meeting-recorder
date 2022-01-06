@@ -22,11 +22,12 @@ const fileName =
 const meetingName = localStorage.getItem("name");
 const meetingDuration = localStorage.getItem("duration");
 const progress = document.getElementById("progress");
-const progressBar = document.getElementById("progressBar");
 localStorage.removeItem("duration");
 localStorage.removeItem("name");
 document.getElementById("name").innerText =
-  meetingName !== "" ? meetingName : fileName;
+  meetingName !== ""
+    ? meetingName[0].toUpperCase() + meetingName.substring(1)
+    : fileName[0].toUpperCase() + fileName.substring(1);
 
 const enableButton = (button) => {
   button.disabled = false;

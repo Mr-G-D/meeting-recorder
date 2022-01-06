@@ -10,13 +10,14 @@ let mainWindow;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 700,
+    width: 950,
+    height: 750,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
       contextIsolation: false,
     },
+    autoHideMenuBar: true,
   });
 
   mainWindow.loadFile("src/pages/index.html");
