@@ -157,34 +157,36 @@ console.log(alertTime1, alerttime);
 
 const countDown = () => {
   console.log(time);
-  let minutes = Math.abs(Math.floor(time / 60));
-  let seconds = Math.abs(time % 60);
-  let alertMinute = Math.floor(alerttime / 60);
-  let alertSeconds = Math.floor(alerttime % 60);
-  progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
-  if (time == alertTime1) {
-    progress.classList.add("bg-yellow-500");
-    progress.classList.remove("bg-green-500");
+  if (time !== -1) {
+    let minutes = Math.abs(Math.floor(time / 60));
+    let seconds = Math.abs(time % 60);
+    let alertMinute = Math.floor(alerttime / 60);
+    let alertSeconds = Math.floor(alerttime % 60);
+    progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
+    if (time == alertTime1) {
+      progress.classList.add("bg-yellow-500");
+      progress.classList.remove("bg-green-500");
+    }
+    if (time == alerttime) {
+      progress.classList.add("bg-red-500");
+      progress.classList.remove("bg-yellow-500");
+      const message = `Only ${alertMinute} minutes ${alertSeconds} seconds more`;
+      let speech = new SpeechSynthesisUtterance();
+      speech.text = message;
+      speech.volume = 1;
+      speech.rate = 1;
+      speech.pitch = 1;
+      window.speechSynthesis.speak(speech);
+      notify.notify({
+        title: process.env.APP_NAME,
+        message: message,
+        icon: "public/images/recorder.png",
+      });
+    }
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    progress.innerHTML = minutes + ":" + seconds;
+    time--;
+    console.log(minutes, ":", seconds);
   }
-  if (time == alerttime) {
-    progress.classList.add("bg-red-500");
-    progress.classList.remove("bg-yellow-500");
-    const message = `Only ${alertMinute} minutes ${alertSeconds} seconds more`;
-    let speech = new SpeechSynthesisUtterance();
-    speech.text = message;
-    speech.volume = 1;
-    speech.rate = 1;
-    speech.pitch = 1;
-    window.speechSynthesis.speak(speech);
-    notify.notify({
-      title: process.env.APP_NAME,
-      message: message,
-      icon: "public/images/recorder.png",
-    });
-  }
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  progress.innerHTML = minutes + ":" + seconds;
-  time--;
-  console.log(minutes, ":", seconds);
 };
