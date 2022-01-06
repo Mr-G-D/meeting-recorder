@@ -1,5 +1,6 @@
 "use strict";
 const { writeFile } = require("fs");
+require("dotenv").config();
 
 const date = new Date();
 const fileName =
@@ -76,6 +77,7 @@ const setTimer = (e) => {
 const startRecording = async () => {
   let constraints = { audio: true, video: false };
 
+  startInterval();
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
@@ -92,8 +94,6 @@ const startRecording = async () => {
         encoding: "mp3",
         numChannels: 2, //2 is the default, mp3 encoding supports only 2
       });
-
-      startInterval();
 
       recorder.onComplete = function (recorder, blob) {
         createDownloadLink(blob, recorder.encoding);
@@ -150,16 +150,40 @@ async function createDownloadLink(blob, encoding) {
 //PROGRESS BAR LOGIC
 
 let time = endTime * 60;
+let alerttime = Math.round((20 / 100) * time);
+let alertTime1 = Math.round((50 / 100) * time);
+console.log(alertTime1, alerttime);
 
 const countDown = () => {
+  console.log(time);
   let minutes = Math.abs(Math.floor(time / 60));
   let seconds = Math.abs(time % 60);
-  if (minutes !== 0 && seconds !== 0) {
-    progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    progress.innerHTML = minutes + ":" + seconds;
-    time--;
-    console.log(minutes, ":", seconds);
+  let alertMinute = Math.floor(alerttime / 60);
+  let alertSeconds = Math.floor(alerttime % 60);
+  progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
+  if (time == alertTime1) {
+    progress.classList.add("bg-yellow-500");
+    progress.classList.remove("bg-green-500");
   }
+  if (time == alerttime) {
+    progress.classList.add("bg-red-500");
+    progress.classList.remove("bg-yellow-500");
+    const message = `Only ${alertMinute} minutes ${alertSeconds} seconds more`;
+    let speech = new SpeechSynthesisUtterance();
+    speech.text = message;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+    // notify.notify({
+    //   title: process.env.APP_NAME,
+    //   message: `Only ${alertMinute} minutes more`,
+    //   icon: "public/images/recorder.png",
+    // });
+  }
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  progress.innerHTML = minutes + ":" + seconds;
+  time--;
+  console.log(minutes, ":", seconds);
 };
