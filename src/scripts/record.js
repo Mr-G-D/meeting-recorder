@@ -19,6 +19,8 @@ const fileName =
 
 const meetingName = localStorage.getItem("name");
 const meetingDuration = localStorage.getItem("duration");
+const progress = document.getElementById("progress");
+const progressBar = document.getElementById("progressBar");
 localStorage.removeItem("duration");
 localStorage.removeItem("name");
 document.getElementById("name").innerText =
@@ -58,6 +60,19 @@ let input;
 
 disableButton(stopButton);
 
+let endTime = meetingDuration ? meetingDuration : 60;
+function startInterval() {
+  let startTimer = setInterval(function () {
+    countDown();
+  }, 1000);
+}
+const setTimer = (e) => {
+  endTime = e;
+  time = e * 60;
+  alerttime = (20 / 100) * time;
+  alertTime1 = (50 / 100) * time;
+};
+
 const startRecording = async () => {
   let constraints = { audio: true, video: false };
 
@@ -77,6 +92,8 @@ const startRecording = async () => {
         encoding: "mp3",
         numChannels: 2, //2 is the default, mp3 encoding supports only 2
       });
+
+      startInterval();
 
       recorder.onComplete = function (recorder, blob) {
         createDownloadLink(blob, recorder.encoding);
@@ -129,3 +146,20 @@ async function createDownloadLink(blob, encoding) {
 
   window.location.href = "../pages/index.html";
 }
+
+//PROGRESS BAR LOGIC
+
+let time = endTime * 60;
+
+const countDown = () => {
+  let minutes = Math.abs(Math.floor(time / 60));
+  let seconds = Math.abs(time % 60);
+  if (minutes !== 0 && seconds !== 0) {
+    progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    progress.innerHTML = minutes + ":" + seconds;
+    time--;
+    console.log(minutes, ":", seconds);
+  }
+};
