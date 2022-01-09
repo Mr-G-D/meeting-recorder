@@ -158,10 +158,8 @@ async function createDownloadLink(blob, encoding) {
 let time = endTime * 60;
 let alerttime = Math.round((20 / 100) * time);
 let alertTime1 = Math.round((50 / 100) * time);
-console.log(alertTime1, alerttime);
 
 const countDown = () => {
-  console.log(time);
   if (time !== -1) {
     let minutes = Math.abs(Math.floor(time / 60));
     let seconds = Math.abs(time % 60);
@@ -192,6 +190,6 @@ const countDown = () => {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     progress.innerHTML = minutes + ":" + seconds;
     time--;
-    console.log(minutes, ":", seconds);
+    // console.log(minutes, ":", seconds);
   }
 };
