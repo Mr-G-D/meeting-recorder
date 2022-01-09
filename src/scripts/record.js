@@ -3,6 +3,8 @@ const { writeFile } = require("fs");
 require("dotenv").config();
 const notify = require("node-notifier");
 
+const homeButton = document.getElementById("homeButton");
+const filesButton = document.getElementById("filesButton");
 const date = new Date();
 const fileName =
   "meeting_recording_" +
@@ -79,6 +81,12 @@ const setTimer = (e) => {
 const startRecording = async () => {
   let constraints = { audio: true, video: false };
 
+  disableButton(homeButton);
+  homeButton.setAttribute("href", "#");
+  disableButton(filesButton);
+  filesButton.setAttribute("href", "#");
+  disableButton(recordButton);
+  enableButton(stopButton);
   startInterval();
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -88,7 +96,6 @@ const startRecording = async () => {
       //assign to gumStream for later use
       gumStream = stream;
 
-      /* use the stream */
       input = audioContext.createMediaStreamSource(stream);
 
       recorder = new WebAudioRecorder(input, {
@@ -117,9 +124,6 @@ const startRecording = async () => {
       stopButton.disabled = true;
       console.log(err);
     });
-
-  disableButton(recordButton);
-  enableButton(stopButton);
 };
 
 function stopRecording() {
