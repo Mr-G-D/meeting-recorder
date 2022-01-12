@@ -72,9 +72,9 @@ URL = window.URL || window.webkitURL;
 
 const recordButton = document.getElementById("startButton");
 const stopButton = document.getElementById("stopButton");
-const fifteenMin = document.getElementById("15min"),
-  tenMin = document.getElementById("10min"),
-  thirtyMin = document.getElementById("30min");
+// const fifteenMin = document.getElementById("15min"),
+//   tenMin = document.getElementById("10min"),
+//   thirtyMin = document.getElementById("30min");
 let gumStream;
 let recorder;
 let input;
@@ -103,9 +103,9 @@ const startRecording = async () => {
   filesButton.setAttribute("href", "#");
   disableButton(recordButton);
   enableButton(stopButton);
-  fifteenMin.classList.remove("hidden");
-  tenMin.classList.remove("hidden");
-  thirtyMin.classList.remove("hidden");
+  // fifteenMin.classList.remove("hidden");
+  // tenMin.classList.remove("hidden");
+  // thirtyMin.classList.remove("hidden");
   startInterval();
   navigator.mediaDevices
     .getUserMedia(constraints)
