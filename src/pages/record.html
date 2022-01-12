@@ -67,7 +67,7 @@
                   <img
                     src="../../public/images/recorder.png"
                     alt="Recorder.png"
-                    class="w-56"
+                    class="w-48"
                   />
                 </div>
 
@@ -81,7 +81,30 @@
                       class="h-full text-center text-xs text-white bg-green-500 rounded-full"
                     ></div>
                   </div>
-                  <p id="startTimer" class="mx-2 text-center text-xs"></p>
+                  <p id="startTimer" class="mx-2 text-center text-xs">00:00</p>
+                </div>
+                <div class="flex justify-around">
+                  <button
+                    onclick="addTime(10)"
+                    id="10min"
+                    class="hidden bg-transparent hover:bg-gray-600 text-white-700 hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded"
+                  >
+                    + 10 min
+                  </button>
+                  <button
+                    onclick="addTime(15)"
+                    id="15min"
+                    class="hidden bg-transparent hover:bg-gray-600 text-white-700 hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded"
+                  >
+                    + 15 min
+                  </button>
+                  <button
+                    onclick="addTime(30)"
+                    id="30min"
+                    class="hidden bg-transparent hover:bg-gray-600 text-white-700 hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded"
+                  >
+                    + 30 min
+                  </button>
                 </div>
 
                 <div class="flex justify-around">

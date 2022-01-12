@@ -21,19 +21,7 @@ const fileName =
   "_" +
   date.getSeconds();
 
-const meetingName =
-  localStorage.getItem("name") +
-  "_" +
-  date.getDate() +
-  "/" +
-  date.getMonth() +
-  1 +
-  "/" +
-  date.getFullYear() +
-  "_" +
-  date.getHours() +
-  ":" +
-  date.getMinutes();
+const meetingName = localStorage.getItem("name");
 const meetingDuration = localStorage.getItem("duration");
 const progress = document.getElementById("progress");
 const startTimer = document.getElementById("startTimer");
@@ -41,7 +29,19 @@ localStorage.removeItem("duration");
 localStorage.removeItem("name");
 document.getElementById("name").innerText =
   meetingName !== ""
-    ? meetingName[0].toUpperCase() + meetingName.substring(1)
+    ? meetingName[0].toUpperCase() +
+      meetingName.substring(1) +
+      "_" +
+      date.getDate() +
+      "/" +
+      date.getMonth() +
+      1 +
+      "/" +
+      date.getFullYear() +
+      "_" +
+      date.getHours() +
+      ":" +
+      date.getMinutes()
     : fileName[0].toUpperCase() + fileName.substring(1);
 
 const enableButton = (button) => {
@@ -72,6 +72,9 @@ URL = window.URL || window.webkitURL;
 
 const recordButton = document.getElementById("startButton");
 const stopButton = document.getElementById("stopButton");
+const fifteenMin = document.getElementById("15min"),
+  tenMin = document.getElementById("10min"),
+  thirtyMin = document.getElementById("30min");
 let gumStream;
 let recorder;
 let input;
@@ -100,6 +103,9 @@ const startRecording = async () => {
   filesButton.setAttribute("href", "#");
   disableButton(recordButton);
   enableButton(stopButton);
+  fifteenMin.classList.remove("hidden");
+  tenMin.classList.remove("hidden");
+  thirtyMin.classList.remove("hidden");
   startInterval();
   navigator.mediaDevices
     .getUserMedia(constraints)
