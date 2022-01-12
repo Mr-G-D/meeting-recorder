@@ -103,10 +103,8 @@ const startRecording = async () => {
   filesButton.setAttribute("href", "#");
   disableButton(recordButton);
   enableButton(stopButton);
-  // fifteenMin.classList.remove("hidden");
-  // tenMin.classList.remove("hidden");
-  // thirtyMin.classList.remove("hidden");
   startInterval();
+  recordButton.innerHTML = '<i class="fa fa-circle mx-2"></i>Recording';
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
