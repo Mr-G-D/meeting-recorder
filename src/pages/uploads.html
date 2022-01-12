@@ -12,6 +12,11 @@
         font-family: "Poppins", sans-serif;
       }
     </style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
+    />
     <title>Recorder</title>
   </head>
   <body>
@@ -33,30 +38,57 @@
         </div>
       </div>
     </section>
-    <section>
-      <div
-        id="uploads"
-        class="min-w-screen bg-white items-center justify-center mx-auto max-w-7xl"
-      >
-        <!-- <div class="flex justify-around">
-          <div class="w-full bg-gray-200 rounded-2xl mx-10 my-2">
-            <div class="flex flex-row items-start w-full h-full px-10 py-7">
-              <h4 class="w-full text-sm">Meeting</h4>
-              <h4 class="w-full text-center text-sm">Meeting</h4>
-              <h4 class="w-full text-center text-sm">Meeting</h4>
-              <h4 class="w-full text-right text-sm flex justify-around">
-                <button onclick="postFile()">
-                  <i style="color: green" class="fas fa-check-circle"></i>
-                </button>
-                <button onclick="deleteFile()">
-                  <i class="far fa-trash-alt"></i>
-                </button>
-              </h4>
-            </div>
+
+    <div class="container mx-auto">
+      <div class="flex flex-col">
+        <div class="w-full">
+          <div class="p-4 border-b border-gray-200 shadow">
+            <!-- <table> -->
+            <table id="dataTable" class="p-4">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="p-8 text-xs text-gray-500">ID</th>
+                  <th class="p-8 text-xs text-gray-500">Name</th>
+                  <th class="p-8 text-xs text-gray-500">Duration</th>
+                  <th class="p-8 text-xs text-gray-500">Created_at</th>
+                  <th class="px-6 py-2 text-xs text-gray-500">Upload</th>
+                  <th class="px-6 py-2 text-xs text-gray-500">Delete</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white" id="uploads">
+                <!-- <tr class="whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-center text-gray-500">1</td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="text-sm text-gray-900">Jon doe 1</div>
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    <div class="text-sm text-gray-500">jhondoe@example.com</div>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-center text-gray-500">
+                    2021-1-12
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    <a
+                      href="#"
+                      class="px-4 py-1 text-sm text-white bg-blue-400 rounded"
+                      >Edit</a
+                    >
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    <a
+                      href="#"
+                      class="px-4 py-1 text-sm text-white bg-red-400 rounded"
+                      >Delete</a
+                    >
+                  </td>
+                </tr> -->
+              </tbody>
+            </table>
           </div>
-        </div> -->
+        </div>
       </div>
-    </section>
+    </div>
+
     <!-- Footer -->
     <div class="items-center justify-center px-5 pt-5 pb-24">
       <footer class="fixed inset-x-0 bottom-0 p-4">
@@ -98,6 +130,22 @@
         </div>
       </footer>
     </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
+    </script>
     <script src="../scripts/uploads.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
   </body>

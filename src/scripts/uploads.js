@@ -6,6 +6,7 @@ const path = require("path");
 require("dotenv").config();
 
 const uploadParent = document.getElementById("uploads");
+let id = 0;
 
 readdir("public/assets/", (err, fileNames) => {
   fileNames.map((fileName) => {
@@ -14,20 +15,35 @@ readdir("public/assets/", (err, fileNames) => {
     );
     audio.onloadedmetadata = () => {
       const duration = audio.duration;
-
       stat(`public/assets/${fileName}`, (err, fileStat) => {
+        const date = fileStat.birthtime.toString();
+        let newFile = document.createElement("tr");
+        newFile.classList.add("whitespace-nowrap");
         let file = fileName.split(".");
-        let newFile = document.createElement("div");
-        newFile.classList.add("flex", "justify-around");
-        newFile.innerHTML = `<div class="w-full bg-gray-200 rounded-2xl mx-10 my-2"><div class="flex flex-row items-start w-full h-full px-10 py-7"><h4 title="${
-          file[0]
-        }" class="w-full text-sm">${
-          file[0].length < 19 ? file[0] : file[0].substring(0, 18) + "..."
-        }</h4><h4 class="w-full text-center text-sm">${(
-          audio.duration / 60
-        ).toFixed(2)} mins </h4><h4 class="w-full text-center text-sm">
-    ${(fileStat.size / 1048576).toFixed(2)} mb
-    </h4><h4 class="w-full text-right text-sm flex justify-around"><button onclick="postFile('${fileName}')"><i id="uploadIcon-${fileName}" class="upload fas fa-upload"></i></button><button onclick="deleteFile('${fileName}')"><i class="far fa-trash-alt"></i></button></h4></div>`;
+        newFile.innerHTML = `
+                          <td class="px-6 py-4 text-sm text-center text-gray-500">
+                          ${++id}
+                          </td>
+                          <td class="px-6 py-4 text-center">
+                            <div class="text-sm text-gray-900">
+                              ${file[0]}
+                            </div>
+                          </td>
+                          <td class="px-6 py-4 text-center">
+                            <div class="text-sm text-gray-500">${(
+                              audio.duration / 60
+                            ).toFixed(2)} mins</div>
+                          </td>
+                          <td class="px-6 py-4 text-sm text-center text-gray-500">
+                            ${date.substring(4, 15)}
+                          </td>
+                          <td class="px-6 py-4 text-center">
+                            <button onclick="postFile('${fileName}')"><i id="uploadIcon-${fileName}" class="upload fas fa-upload"></i></button>
+                          </td>
+                          <td class="px-6 py-4 text-center">
+                            </button><button onclick="deleteFile('${fileName}')"><i class="far fa-trash-alt"></i></button>
+                          </td>
+                        `;
         uploadParent.appendChild(newFile);
       });
     };
