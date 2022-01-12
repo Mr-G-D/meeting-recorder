@@ -3,3 +3,5 @@
 /.env
 
 /public/assets/*
+
+/test.text

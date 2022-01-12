@@ -21,7 +21,19 @@ const fileName =
   "_" +
   date.getSeconds();
 
-const meetingName = localStorage.getItem("name");
+const meetingName =
+  localStorage.getItem("name") +
+  "_" +
+  date.getDate() +
+  "/" +
+  date.getMonth() +
+  1 +
+  "/" +
+  date.getFullYear() +
+  "_" +
+  date.getHours() +
+  ":" +
+  date.getMinutes();
 const meetingDuration = localStorage.getItem("duration");
 const progress = document.getElementById("progress");
 localStorage.removeItem("duration");
