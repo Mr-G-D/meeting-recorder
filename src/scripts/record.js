@@ -36,6 +36,7 @@ const meetingName =
   date.getMinutes();
 const meetingDuration = localStorage.getItem("duration");
 const progress = document.getElementById("progress");
+const startTimer = document.getElementById("startTimer");
 localStorage.removeItem("duration");
 localStorage.removeItem("name");
 document.getElementById("name").innerText =
@@ -168,13 +169,17 @@ async function createDownloadLink(blob, encoding) {
 //PROGRESS BAR LOGIC
 
 let time = endTime * 60;
+let startMinutes, startSeconds;
 let alerttime = Math.round((20 / 100) * time);
 let alertTime1 = Math.round((50 / 100) * time);
+let startTime = 0;
 
 const countDown = () => {
   if (time !== -1) {
     let minutes = Math.abs(Math.floor(time / 60));
     let seconds = Math.abs(time % 60);
+    startMinutes = Math.abs(Math.floor(startTime / 60));
+    startSeconds = Math.abs(startTime % 60);
     let alertMinute = Math.floor(alerttime / 60);
     let alertSeconds = Math.floor(alerttime % 60);
     progress.setAttribute("style", `width: ${(time / (endTime * 60)) * 100}%`);
@@ -200,8 +205,12 @@ const countDown = () => {
     }
     seconds = seconds < 10 ? "0" + seconds : seconds;
     minutes = minutes < 10 ? "0" + minutes : minutes;
+    startMinutes = startMinutes < 10 ? "0" + startMinutes : startMinutes;
+    startSeconds = startSeconds < 10 ? "0" + startSeconds : startSeconds;
     progress.innerHTML = minutes + ":" + seconds;
+    startTimer.innerHTML = startMinutes + ":" + startSeconds;
     time--;
+    startTime++;
     // console.log(minutes, ":", seconds);
   }
 };
