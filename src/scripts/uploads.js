@@ -54,8 +54,12 @@ readdir("public/assets/", (err, fileNames) => {
                             ${date.substring(4, 15)}
                           </td>
                           <td class="px-6 py-4 text-center">
-                          
-                            <button onclick="postFile('${fileName}')"><i id="uploadIcon-${fileName}" class="upload fas fa-upload"></i></button>
+                          ${
+                            uploadedFile === "false"
+                              ? `<button onclick="postFile('${fileName}')"><i id="uploadIcon-${fileName}" class="upload fas fa-upload"></i></button>`
+                              : `<button><i id="uploadIcon-${fileName}" style="color: green;" class="upload fas fa-check-circle"></i></button>`
+                          }
+                            
                           </td>
                           <td class="px-6 py-4 text-center">
                             </button><button onclick="deleteFile('${fileName}')"><i class="far fa-trash-alt"></i></button>
