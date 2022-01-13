@@ -104,7 +104,8 @@ const postFile = (fileName) => {
 };
 
 const deleteFile = async (fileName) => {
-  const response = await confirm(`Are you sure to delete ${fileName}`);
+  localStorage.removeItem(fileName);
+  const response = await confirm(`Are you sure to delete ${fileName}?`);
   if (response) {
     unlink(path.join(__dirname, "../../public/assets/", fileName), (err) => {
       if (err) {
@@ -113,4 +114,30 @@ const deleteFile = async (fileName) => {
     });
     window.location.reload();
   }
+};
+
+const uploadAll = async () => {
+  const response = await confirm(
+    "Do you want to delete all the files after uploading?",
+  );
+  readdir("public/assets/", (err, fileNames) => {
+    fileNames.map(async (fileName) => {
+      const fileStat = localStorage.getItem(fileName);
+      if (fileStat === "false") {
+        await postFile(fileName);
+      }
+
+      if (response) {
+        await unlink(
+          path.join(__dirname, "../../public/assets/", fileName),
+          (err) => {
+            if (err) {
+              console.log(err);
+            }
+          },
+        );
+      }
+    });
+  });
+  window.location.reload();
 };
