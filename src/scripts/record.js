@@ -167,6 +167,8 @@ async function createDownloadLink(blob, encoding) {
     () => console.log("audio saved!"),
   );
 
+  localStorage.setItem(meetingName, false);
+
   window.location.href = "../pages/index.html";
 }
 

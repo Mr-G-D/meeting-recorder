@@ -6,15 +6,25 @@ const path = require("path");
 require("dotenv").config();
 
 const uploadParent = document.getElementById("uploads");
+const uploaded = document.getElementById("uploaded");
+const notUploaded = document.getElementById("notUploaded");
 let id = 0;
+let uploadedCount = 0,
+  notUploadedCount = 0;
 
 readdir("public/assets/", (err, fileNames) => {
   fileNames.map((fileName) => {
+    const uploadedFile = localStorage.getItem(fileName);
+    if (uploadedFile === "false") {
+      notUploadedCount += 1;
+    }
+    if (uploadedFile === "true") {
+      uploadedCount += 1;
+    }
     let audio = new Audio(
       path.join(__dirname, "../../public/assets", fileName),
     );
     audio.onloadedmetadata = () => {
-      const duration = audio.duration;
       stat(`public/assets/${fileName}`, (err, fileStat) => {
         const date = fileStat.birthtime.toString();
         let newFile = document.createElement("tr");
@@ -25,8 +35,14 @@ readdir("public/assets/", (err, fileNames) => {
                           ${++id}
                           </td>
                           <td class="px-6 py-4 text-center">
-                            <div class="text-sm text-gray-900">
-                              ${file[0]}
+                            <div class="text-sm text-gray-900" title="${
+                              file[0]
+                            }">
+                              ${
+                                file[0].length < 19
+                                  ? file[0]
+                                  : file[0].substring(0, 18) + "..."
+                              }
                             </div>
                           </td>
                           <td class="px-6 py-4 text-center">
@@ -38,6 +54,7 @@ readdir("public/assets/", (err, fileNames) => {
                             ${date.substring(4, 15)}
                           </td>
                           <td class="px-6 py-4 text-center">
+                          
                             <button onclick="postFile('${fileName}')"><i id="uploadIcon-${fileName}" class="upload fas fa-upload"></i></button>
                           </td>
                           <td class="px-6 py-4 text-center">
@@ -45,12 +62,16 @@ readdir("public/assets/", (err, fileNames) => {
                           </td>
                         `;
         uploadParent.appendChild(newFile);
+        uploaded.innerText = uploadedCount;
+        notUploaded.innerText = notUploadedCount;
       });
     };
   });
 });
 
 const postFile = (fileName) => {
+  localStorage.removeItem(fileName);
+  localStorage.setItem(fileName, true);
   let uploadIcon = document.getElementById(`uploadIcon-${fileName}`);
   uploadIcon.style.cursor = "not-allowed";
   uploadIcon.classList.remove("fa-upload");
