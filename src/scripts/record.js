@@ -157,18 +157,30 @@ function stopRecording() {
   recorder.finishRecording();
 }
 
+const audioRecordingName =
+  meetingName !== ""
+    ? meetingName +
+      "_" +
+      date.getDate() +
+      "_" +
+      date.getMonth() +
+      1 +
+      "_" +
+      date.getFullYear() +
+      "_" +
+      date.getHours() +
+      "_" +
+      date.getMinutes()
+    : fileName[0].toUpperCase() + fileName.substring(1);
 async function createDownloadLink(blob, encoding) {
   const buffer = Buffer.from(await blob.arrayBuffer());
   await writeFile(
-    `./public/assets/${
-      meetingName !== "" ? meetingName : fileName
-    }.${encoding}`,
+    `./public/assets/${audioRecordingName}.${encoding}`,
     buffer,
     () => console.log("audio saved!"),
   );
 
-  localStorage.setItem(meetingName, false);
-
+  localStorage.setItem(audioRecordingName + "." + encoding, false);
   window.location.href = "../pages/index.html";
 }
 

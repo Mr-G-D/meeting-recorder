@@ -14,7 +14,9 @@ let uploadedCount = 0,
 
 readdir("public/assets/", (err, fileNames) => {
   fileNames.map((fileName) => {
+    // localStorage.setItem(fileName, false);
     const uploadedFile = localStorage.getItem(fileName);
+    console.log(fileName, uploadedFile);
     if (uploadedFile === "false") {
       notUploadedCount += 1;
     }
