@@ -17,7 +17,7 @@ app.on("ready", () => {
       enableRemoteModule: true,
       contextIsolation: false,
     },
-    // autoHideMenuBar: true,
+    autoHideMenuBar: true,
   });
 
   mainWindow.loadFile("src/pages/index.html");
