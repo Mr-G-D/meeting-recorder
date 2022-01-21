@@ -11,28 +11,27 @@ const notUploaded = document.getElementById("notUploaded");
 let id = 0;
 let uploadedCount = 0,
   notUploadedCount = 0;
-
-readdir("public/assets/", (err, fileNames) => {
+console.log(path.join(__dirname, "../../../assets/"));
+readdir(path.join(__dirname, "../../../assets/"), (err, fileNames) => {
   fileNames.map((fileName) => {
     // localStorage.setItem(fileName, false);
     const uploadedFile = localStorage.getItem(fileName);
-    console.log(fileName, uploadedFile);
     if (uploadedFile === "false") {
       notUploadedCount += 1;
     }
     if (uploadedFile === "true") {
       uploadedCount += 1;
     }
-    let audio = new Audio(
-      path.join(__dirname, "../../public/assets", fileName),
-    );
+    let audio = new Audio(path.join(__dirname, "../../../assets", fileName));
     audio.onloadedmetadata = () => {
-      stat(`public/assets/${fileName}`, (err, fileStat) => {
-        const date = fileStat.birthtime.toString();
-        let newFile = document.createElement("tr");
-        newFile.classList.add("whitespace-nowrap");
-        let file = fileName.split(".");
-        newFile.innerHTML = `
+      stat(
+        path.join(__dirname, "../../../assets", fileName),
+        (err, fileStat) => {
+          const date = fileStat.birthtime.toString();
+          let newFile = document.createElement("tr");
+          newFile.classList.add("whitespace-nowrap");
+          let file = fileName.split(".");
+          newFile.innerHTML = `
                           <td class="px-6 py-4 text-sm text-center text-gray-500">
                           ${++id}
                           </td>
@@ -67,10 +66,11 @@ readdir("public/assets/", (err, fileNames) => {
                             </button><button onclick="deleteFile('${fileName}')"><i class="far fa-trash-alt"></i></button>
                           </td>
                         `;
-        uploadParent.appendChild(newFile);
-        uploaded.innerText = uploadedCount;
-        notUploaded.innerText = notUploadedCount;
-      });
+          uploadParent.appendChild(newFile);
+          uploaded.innerText = uploadedCount;
+          notUploaded.innerText = notUploadedCount;
+        },
+      );
     };
   });
 });
@@ -82,8 +82,9 @@ const postFile = (fileName) => {
   uploadIcon.style.cursor = "not-allowed";
   uploadIcon.classList.remove("fa-upload");
   uploadIcon.classList.add("fas", "fa-spinner", "fa-pulse");
-  let filepath = path.join(__dirname, "../../public/assets/", fileName);
-  const url = process.env.SERVER_API;
+  let filepath = path.join(__dirname, "../../../assets/", fileName);
+  const url =
+    "https://testing.icrewsystems.com/vscode-api/api/v1/upload-recording";
   poster.post(
     filepath,
     {
@@ -99,6 +100,8 @@ const postFile = (fileName) => {
         uploadIcon.classList.add("fas", "fa-upload");
         console.log(err);
       } else {
+        uploadedCount += 1;
+        notUploadedCount -= 1;
         uploadIcon.style.cursor = "pointer";
         uploadIcon.classList.remove("fas", "fa-spinner", "fa-pulse");
         uploadIcon.classList.add("fas", "fa-check-circle");
@@ -113,7 +116,7 @@ const deleteFile = async (fileName) => {
   localStorage.removeItem(fileName);
   const response = await confirm(`Are you sure to delete ${fileName}?`);
   if (response) {
-    unlink(path.join(__dirname, "../../public/assets/", fileName), (err) => {
+    unlink(path.join(__dirname, "../../../assets/", fileName), (err) => {
       if (err) {
         console.log(err);
       }
@@ -126,7 +129,7 @@ const uploadAll = async () => {
   const response = await confirm(
     "Do you want to delete all the files after uploading?",
   );
-  readdir("public/assets/", (err, fileNames) => {
+  readdir(path.join(__dirname, "../../../assets/"), (err, fileNames) => {
     fileNames.map(async (fileName) => {
       const fileStat = localStorage.getItem(fileName);
       if (fileStat === "false") {
@@ -135,7 +138,7 @@ const uploadAll = async () => {
 
       if (response) {
         await unlink(
-          path.join(__dirname, "../../public/assets/", fileName),
+          path.join(__dirname, "../../../assets/", fileName),
           (err) => {
             if (err) {
               console.log(err);

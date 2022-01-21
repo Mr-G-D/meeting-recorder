@@ -1,17 +1,33 @@
 {
   "name": "meeting-recorder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An application to record meeting conversations",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "author": "DINESH KUMAR",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "electron": "^16.0.5",
     "node-notifier": "^10.0.0",
     "poster": "^0.0.9"
+  },
+  "devDependencies": {
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.5"
+  },
+  "build": {
+    "appId": "Meeting Recorder",
+    "icon": "public/images/recorder.png",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

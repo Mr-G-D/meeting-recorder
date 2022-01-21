@@ -2,6 +2,7 @@
 const { writeFile } = require("fs");
 require("dotenv").config();
 const notify = require("node-notifier");
+const path = require("path");
 
 const homeButton = document.getElementById("homeButton");
 const filesButton = document.getElementById("filesButton");
@@ -175,7 +176,11 @@ const audioRecordingName =
 async function createDownloadLink(blob, encoding) {
   const buffer = Buffer.from(await blob.arrayBuffer());
   await writeFile(
-    `./public/assets/${audioRecordingName}.${encoding}`,
+    path.join(
+      __dirname,
+      "../../../assets",
+      audioRecordingName + "." + encoding,
+    ),
     buffer,
     () => console.log("audio saved!"),
   );
@@ -216,7 +221,7 @@ const countDown = () => {
       speech.pitch = 1;
       window.speechSynthesis.speak(speech);
       notify.notify({
-        title: process.env.APP_NAME,
+        title: "Meeting Recorder",
         message: message,
         icon: "public/images/recorder.png",
       });
@@ -232,3 +237,4 @@ const countDown = () => {
     // console.log(minutes, ":", seconds);
   }
 };
+console.log(path.join(__dirname, "../../../../assets"));
