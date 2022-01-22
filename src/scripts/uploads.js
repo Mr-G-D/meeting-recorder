@@ -11,7 +11,6 @@ const notUploaded = document.getElementById("notUploaded");
 let id = 0;
 let uploadedCount = 0,
   notUploadedCount = 0;
-console.log(path.join(__dirname, "../../../assets/"));
 readdir(path.join(__dirname, "../../../assets/"), (err, fileNames) => {
   fileNames.map((fileName) => {
     // localStorage.setItem(fileName, false);
@@ -83,8 +82,7 @@ const postFile = (fileName) => {
   uploadIcon.classList.remove("fa-upload");
   uploadIcon.classList.add("fas", "fa-spinner", "fa-pulse");
   let filepath = path.join(__dirname, "../../../assets/", fileName);
-  const url =
-    "https://testing.icrewsystems.com/vscode-api/api/v1/upload-recording";
+  const url = process.env.SERVER_API;
   poster.post(
     filepath,
     {

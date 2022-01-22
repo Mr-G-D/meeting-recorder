@@ -237,4 +237,3 @@ const countDown = () => {
     // console.log(minutes, ":", seconds);
   }
 };
-console.log(path.join(__dirname, "../../../../assets"));
