@@ -5,6 +5,12 @@ This application runs top over `WebAudioRecorderMp3`.
 This application is an open source project that can be used to record meeting audio, keep track
 of meetings and upload it to a server or portal. The recorded audio will be saved in mp3 format
 
+## Download
+
+The files to Download can be found below.
+
+## [Windows]('https://github.com/Mr-G-D/meeting-recorder/releases/download/V1.1/meeting-recorder.exe)
+
 ## Documentation
 
 #### How To Use
