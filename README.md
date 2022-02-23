@@ -9,7 +9,7 @@ of meetings and upload it to a server or portal. The recorded audio will be save
 
 | OS         | Link                                                                                               |
 | :--------- | :------------------------------------------------------------------------------------------------- |
-| 🖥️ Windows | [Download](https://github.com/Mr-G-D/meeting-recorder/releases/download/V1.1/meeting-recorder.exe) |
+| 🖥️ Windows | [Download](https://github.com/Mr-G-D/meeting-recorder/releases/download/V1.1/build-zip.zip) |
 
 
 ## Documentation
