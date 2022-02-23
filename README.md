@@ -6,10 +6,11 @@ This application is an open source project that can be used to record meeting au
 of meetings and upload it to a server or portal. The recorded audio will be saved in mp3 format
 
 ## Download
+| OS                              | Link                                                       |
+| :------------------------------------ | :---------------------------------------------------------- |
+| 🖥️  Windows    | [Download](https://github.com/Mr-G-D/meeting-recorder/releases/download/V1.1/meeting-recorder.exe)         |
 
-The files to Download can be found below.
 
-## [Windows]('https://github.com/Mr-G-D/meeting-recorder/releases/download/V1.1/meeting-recorder.exe)
 
 ## Documentation
 
